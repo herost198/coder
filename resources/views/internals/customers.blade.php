@@ -1,20 +1,36 @@
 <h1>List Customers</h1>
 
-<form action="" method="post">
-        @csrf
-        <div class="input-group">
-                <input type="text" name="name">
-        </div>
-        {{$errors->first('name')}}
-        <div class="input-group">
-                <input type="text" name="email">
-        </div>
-        {{$errors->first('email')}}
-        <button type="submit">Thêm mới</button>
-</form>
-<ul>
 
-@foreach($customers as $customer)
-        <li>{{$customer->name}}({{$customer->email}})</li>
-@endforeach
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Active</h1>
+            <ul>
+                @foreach($activeCustomers as $active)
+                    <li>{{$active->name}}({{$active->company->name}})</li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <h1>InActive</h1>
+            <ul>
+                @foreach($inactiveCustomers as $inactive)
+                    <li>{{$inactive->name}}({{$inactive->company->name}})</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        @foreach($companies as $comany)
+            <div class="col-sm-6">
+                <h1>{{$comany->name}}</h1>
+                <ul>
+                    @foreach($comany->customers as $customer)
+                        <li>{{$customer->name}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endforeach
+    </div>
+</div>
+
